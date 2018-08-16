@@ -1,0 +1,25 @@
+{
+  "name": "webpack-variations",
+  "version": "0.0.0",
+  "description": "Webpack plugin for creating multiple variations of a build.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timstruthoff/webpack-variations.git"
+  },
+  "keywords": [
+    "mediamonks",
+    "webpack",
+    "plugin",
+    "variations"
+  ],
+  "author": "Tim Struthoff <tim.struthoff@mediamonks.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timstruthoff/webpack-variations/issues"
+  },
+  "homepage": "https://github.com/timstruthoff/webpack-variations#readme"
+}
