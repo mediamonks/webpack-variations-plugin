@@ -1,0 +1,1 @@
+module.exports = (object) => `const CONFIG = '${JSON.stringify(object)}';`;
