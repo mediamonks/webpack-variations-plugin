@@ -1,6 +1,6 @@
 {
   "name": "@mediamonks/webpack-variations",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Webpack plugin for creating multiple variations of a build.",
   "main": "src/index.js",
   "scripts": {
