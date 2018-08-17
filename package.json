@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/timstruthoff/webpack-variations.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "mediamonks",
     "webpack",
