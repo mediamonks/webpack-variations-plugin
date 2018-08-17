@@ -14,7 +14,7 @@ module.exports = class {
    * @param {Array} options[].ignore Array of glob patters for ignoring files. All files which match one of these pattern won't be copied.
    * @param {String} [options[].constantName = CONFIG] The name of the global constant where the object is saved.
    */
-  constructor({variations, ignore, constantName = 'CONFIG'}) {
+  constructor({ variations, ignore, constantName = 'CONFIG' }) {
     this.variations = variations;
     this.ignore = ignore;
     this.constantName = constantName;
@@ -32,11 +32,13 @@ module.exports = class {
         variations: this.variations,
         ignore: this.ignore,
         constantName: this.constantName,
-      }).then(() => {
-        callback();
-      }).catch(error => {
-        console.error(error)
-      });
+      })
+        .then(() => {
+          callback();
+        })
+        .catch(error => {
+          console.error(error);
+        });
     });
   }
 };
