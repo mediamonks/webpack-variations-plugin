@@ -10,6 +10,12 @@ const MINIMATCH_OPTIONS = {
   dot: true,
 };
 
+/**
+ * Copy a source to a destination recursively while ignoring specific files.
+ * @param {String} source Absolute path of the source directory.
+ * @param {String} destination Absolute path of the destination directory.
+ * @param {Array} ignore Array of glob strings specifiing which files to ignore when copiing.
+ */
 module.exports = async (source, destination, ignore) => {
   if (!Array.isArray(ignore) || ignore.length < 1) {
     ignore = [];
@@ -37,11 +43,16 @@ module.exports = async (source, destination, ignore) => {
   };
 
   let files = await fs.readdir(source);
+
+  // Creating a promise for each copy process.
   let promises = files.map(file => {
     if (filterAll(file)) {
+
+      // Getting absolute paths.
       let sourceAbsolute = path.join(source, file);
       let destinationAbsolute = path.join(destination, file);
-
+      
+      // Checking if the destination folder is inside the source folder.
       if (!folderIncludes(sourceAbsolute, destinationAbsolute)) {
         return copy(sourceAbsolute, destinationAbsolute, options);
       }

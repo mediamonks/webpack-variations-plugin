@@ -8,7 +8,9 @@ const PROJECT_PATH = path.resolve('./');
 
 console.log(PROJECT_PATH);
 
-
+/**
+ * Handles the plugin logic.
+ */
 module.exports = async ({ compiler, compilation, variations, ignore }) => {
   let script = await getScript(compilation);
   let scriptSource = script.sourceContents._value;
