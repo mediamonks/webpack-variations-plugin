@@ -9,13 +9,15 @@ const handler = require('./lib/handler');
 module.exports = class {
   /**
    * Create a variations webpack plugin.
-   * @param {object} options The optins of the plugin.
-   * @param {object} options.variations Object with an object for each generation in it.
-   * @param {Array} options.ignore Array of glob patters for ignoring files. All files which match one of these pattern won't be copied.
+   * @param {Object[]} options The optins of the plugin.
+   * @param {Object} options[].variations Object with an object for each generation in it.
+   * @param {Array} options[].ignore Array of glob patters for ignoring files. All files which match one of these pattern won't be copied.
+   * @param {String} [options[].constantName = CONFIG] The name of the global constant where the object is saved.
    */
-  constructor(options) {
-    this.variations = options.variations;
-    this.ignore = options.ignore;
+  constructor({variations, ignore, constantName = 'CONFIG'}) {
+    this.variations = variations;
+    this.ignore = ignore;
+    this.constantName = constantName;
   }
 
   /**
@@ -29,6 +31,7 @@ module.exports = class {
         compilation,
         variations: this.variations,
         ignore: this.ignore,
+        constantName: this.constantName,
       }).then(() => {
         callback();
       }).catch(error => {

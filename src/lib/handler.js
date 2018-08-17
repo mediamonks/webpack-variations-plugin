@@ -11,7 +11,7 @@ console.log(PROJECT_PATH);
 /**
  * Handles the plugin logic.
  */
-module.exports = async ({ compiler, compilation, variations, ignore }) => {
+module.exports = async ({ compiler, compilation, variations, ignore, constantName}) => {
   let script = await getScript(compilation);
   let scriptSource = script.sourceContents._value;
 
@@ -26,7 +26,7 @@ module.exports = async ({ compiler, compilation, variations, ignore }) => {
 
     // Concating the object to the webpack source and saving in new asset.
     compilation.assets[path.join(variationName, relativeBuildPath, 'main.bundle.js')] = new ConcatSource(
-      makePrepend(content),
+      makePrepend(constantName, content),
       '\n',
       scriptSource,
     );
