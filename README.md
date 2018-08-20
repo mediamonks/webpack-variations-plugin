@@ -21,7 +21,7 @@ To use this plugin, you first have to require it. Secondly, you have to add an i
 You have to pass the following options to the plugin.
 
 #### `variations: <Object>` (required)
-The variations of the build output. Each item in the object defines one output variation. The key of each variation defines the name (and folder name) of the variation. The value of the variation will be included in the build as a global variable called CONFIG.
+The variations of the build output. Each item in the object defines one output variation. The key of each variation defines the name (and folder name) of the variation. The value of the variation will be included in the build as a global variable called CONFIG. The variation object may also include a `_defaultVariation` key with a variation name as string value. This variation is then used as a default in development mode.
 
 #### `rename: <Array>` (optional)
 An array containing rename instructions as objects. Each instruction object has a test string and a rename string property. The test string is a glob pattern and should match the base name of all files which should be renamed. Two tests should not match the same files. If two tests match the same file, only the first one is used. The rename string is the new base name of the file. This filename may include the following placeholders: 
@@ -59,6 +59,7 @@ module.exports = {
         rio: {
           country: 'Brazil',
         },
+        _defaultVariation: 'tokio',
       },
       rename: [
         {

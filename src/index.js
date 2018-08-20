@@ -20,6 +20,18 @@ module.exports = class {
     this.rename = rename;
     this.ignore = ignore;
     this.constantName = constantName;
+
+    // Checking inputs.
+    if (typeof variations !== 'object') {
+      throw new Error(
+        'Webpack variations plugin: No variations object found! Please provide a variation object with at least one variation.',
+      );
+    }
+    if (Object.keys(variations).length === 0 && variations.constructor === Object) {
+      throw new Error(
+        'Webpack variations plugin: Variations object is empty. Please provide at least one variation.',
+      );
+    }
   }
 
   /**
