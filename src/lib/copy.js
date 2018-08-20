@@ -5,6 +5,7 @@ const { copy } = require('fs-extra');
 const path = require('path');
 const minimatch = require('minimatch');
 const folderIncludes = require('./folderIncludes');
+const Renamer = require('./Renamer');
 
 const MINIMATCH_OPTIONS = {
   dot: true,
@@ -16,7 +17,7 @@ const MINIMATCH_OPTIONS = {
  * @param {String} destination Absolute path of the destination directory.
  * @param {Array} ignore Array of glob strings specifiing which files to ignore when copiing.
  */
-module.exports = async (source, destination, ignore) => {
+module.exports = async ({ source, destination, renamer, ignore }) => {
   if (!Array.isArray(ignore) || ignore.length < 1) {
     ignore = [];
   }
@@ -47,9 +48,19 @@ module.exports = async (source, destination, ignore) => {
   // Creating a promise for each copy process.
   let promises = files.map(file => {
     if (filterAll(file)) {
-      // Getting absolute paths.
+      let newFilename = file;
+
+      // Getting rename instructions.
+      let renameInstruction = renamer.getInstruction(file);
+
+      // Cheking if the file should be renamed.
+      if (renameInstruction !== null) {
+        newFilename = renamer.rename(file, renameInstruction);
+      }
+
+      // Assembling absolute file paths.
       let sourceAbsolute = path.join(source, file);
-      let destinationAbsolute = path.join(destination, file);
+      let destinationAbsolute = path.join(destination, newFilename);
 
       // Checking if the destination folder is inside the source folder.
       if (!folderIncludes(sourceAbsolute, destinationAbsolute)) {

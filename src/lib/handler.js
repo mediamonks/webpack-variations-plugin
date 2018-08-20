@@ -2,6 +2,7 @@ const ConcatSource = require('webpack-sources/lib/ConcatSource');
 const getScript = require('./getScript');
 const makePrepend = require('./makePrepend');
 const copy = require('./copy');
+const Renamer = require('./Renamer');
 const path = require('path');
 
 const PROJECT_PATH = path.resolve('./');
@@ -11,7 +12,7 @@ console.log(PROJECT_PATH);
 /**
  * Handles the plugin logic.
  */
-module.exports = async ({ compiler, compilation, variations, ignore, constantName }) => {
+module.exports = async ({ compiler, compilation, variations, rename, ignore, constantName }) => {
   let script = await getScript(compilation);
   let scriptSource = script.sourceContents._value;
 
@@ -28,12 +29,19 @@ module.exports = async ({ compiler, compilation, variations, ignore, constantNam
       path.join(variationName, relativeBuildPath, 'main.bundle.js')
     ] = new ConcatSource(makePrepend(constantName, content), '\n', scriptSource);
 
+    let renamer = new Renamer({
+      instructions: rename,
+      data: {
+        variationName,
+      },
+    });
     // Copying all other project files into current directory
-    let copyResult = await copy(
-      PROJECT_PATH,
-      path.join(PROJECT_PATH, relativeBuildPath, variationName),
+    let copyResult = await copy({
+      source: PROJECT_PATH,
+      destination: path.join(PROJECT_PATH, relativeBuildPath, variationName),
       ignore,
-    );
+      renamer,
+    });
 
     console.log(`Copied ${copyResult.numberOfFiles} files in ${variationName}.`);
   }
