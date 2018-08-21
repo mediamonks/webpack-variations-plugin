@@ -1,15 +1,15 @@
-# webpack-variations
+# webpack-variations-plugin
 
 This plugin makes it possible to output multiple variations of a single project. In each output script, there is a unique object available as a global constant.
 It is similar to the webpack DefinePlugin but also copies the project files to the output directory.
 
 ## Install
 ```javascript
-npm i -D @mediamonks/webpack-variations
+npm i -D @mediamonks/webpack-variations-plugin
 ```
 or
 ```javascript
-yarn add -D @mediamonks/webpack-variations
+yarn add -D @mediamonks/webpack-variations-plugin
 ```
 ## Usage
 
@@ -43,7 +43,7 @@ The name of the global constant in which the object will be saved. This defaults
 
 **webpack.config.js**
 ```javascript
-const WebpackVariations = require('@mediamonks/webpack-variations');
+const WebpackVariations = require('@mediamonks/webpack-variations-plugin');
 
 module.exports = {
   // ...

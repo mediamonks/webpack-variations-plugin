@@ -39,7 +39,7 @@ module.exports = class {
    * @param {object} compiler The webpack compiler.
    */
   apply(compiler) {
-    compiler.hooks.emit.tapAsync('webpack-variations', (compilation, callback) => {
+    compiler.hooks.emit.tapAsync('webpack-variations-plugin', (compilation, callback) => {
       handler({
         compiler,
         compilation,
